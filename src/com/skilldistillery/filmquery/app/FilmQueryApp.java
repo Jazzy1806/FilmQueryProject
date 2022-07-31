@@ -90,8 +90,7 @@ public class FilmQueryApp {
 				System.out.println("Would you like to: ");
 				System.out.println("1. See all film details" + "\n2. Return to main menu");
 				
-				selection = input.nextInt();
-				input.nextLine();
+				selection = Integer.parseInt(input.nextLine());
 
 				if (selection > 2 || selection < 1) {
 					System.out.println("That's not a valid option.\n");
@@ -104,7 +103,6 @@ public class FilmQueryApp {
 				break;
 			} catch (Exception e) {
 				System.out.println("That's not a valid option.\n");
-				input.nextLine();
 			}
 		} while (flag);
 	}
