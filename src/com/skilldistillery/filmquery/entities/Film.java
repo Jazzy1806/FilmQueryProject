@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Film {
 	private List<Actor> actors = new ArrayList<Actor>();
+	private List<InventoryItem> availableCopies = new ArrayList<InventoryItem>();
 	private int filmId;
 	private String title;
 	private String description;
@@ -17,11 +18,14 @@ public class Film {
 	private String rating;
 	private String features;
 	private String category;
+
 	
 	public Film() {	}
 
-	public Film(int filmId, String title, String description, int release_year, int langId, String language, int duration,
-			double rentalRate, int length, double replaceCost, String rating, String features, String category, List<Actor> actors) {
+	
+	public Film(int filmId, String title, String description, int release_year, int langId, String language, int duration, double rentalRate,
+			 int length, double replaceCost, String rating, String features, String category, List<Actor> actors, List<InventoryItem> availableCopies) {
+	
 		this.filmId = filmId;
 		this.title = title;
 		this.description = description;
@@ -36,6 +40,7 @@ public class Film {
 		this.features = features;
 		this.category = category;
 		this.actors = actors;
+		this.availableCopies = availableCopies;
 	}
 
 	public String getCategory() {
@@ -152,8 +157,8 @@ public class Film {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(actors, category, description, duration, features, filmId, langId, language, length, rating,
-				release_year, rentalRate, replaceCost, title);
+		return Objects.hash(actors, availableCopies, category, description, duration, features, filmId, langId,
+				language, length, rating, release_year, rentalRate, replaceCost, title);
 	}
 
 	@Override
@@ -165,10 +170,10 @@ public class Film {
 		if (getClass() != obj.getClass())
 			return false;
 		Film other = (Film) obj;
-		return Objects.equals(actors, other.actors) && Objects.equals(category, other.category)
-				&& Objects.equals(description, other.description) && duration == other.duration
-				&& Objects.equals(features, other.features) && filmId == other.filmId && langId == other.langId
-				&& Objects.equals(language, other.language) && length == other.length
+		return Objects.equals(actors, other.actors) && Objects.equals(availableCopies, other.availableCopies)
+				&& Objects.equals(category, other.category) && Objects.equals(description, other.description)
+				&& duration == other.duration && Objects.equals(features, other.features) && filmId == other.filmId
+				&& langId == other.langId && Objects.equals(language, other.language) && length == other.length
 				&& Objects.equals(rating, other.rating) && release_year == other.release_year
 				&& Double.doubleToLongBits(rentalRate) == Double.doubleToLongBits(other.rentalRate)
 				&& Double.doubleToLongBits(replaceCost) == Double.doubleToLongBits(other.replaceCost)
@@ -186,12 +191,22 @@ public class Film {
 		}
 		return actorList;
 	}
+	
+	public String printInventory() {
+		String inventory = "";
+		int counter = 1;
+		for (InventoryItem copy : availableCopies) {
+			inventory += counter + ". " + copy + "\n";
+			counter++;
+			}
+		return inventory;
+	}
 
 	public String fullPrint() {
 		return "Title: " + title + "\nRelease Year: " + release_year + "\nDescription: " + description + 
 				"\nLanguage ID: " + langId + "\t\tLanguage: " + language +"\t\tDuration: " + duration + "\t\tLength: " + length + "\nRental Rate: $" + rentalRate
 				+ "\t\tReplacement Cost: $" + replaceCost + "\nRating: " + rating + "\t\tCategory: " + category + "\t\tFilm ID: " + filmId + "\nFeatures: "
-				+ features + "\nActors in film: " + printActors() + "\n";
+				+ features + "\nActors in film: " + printActors() + "\n\nList of available rentals and their condition:\n" + printInventory();
 	}
 
 	@Override

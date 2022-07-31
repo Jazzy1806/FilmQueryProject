@@ -18,9 +18,7 @@ public class FilmQueryApp {
 	}
 
 	private void launch() {
-
 		startUserInterface();
-
 		input.close();
 	}
 
@@ -33,11 +31,13 @@ public class FilmQueryApp {
 		int id = 0;
 		String keyword = "";
 		boolean flag = true;
+
 		do {
 			try {
 				System.out.println("What would you like to do? ");
-				System.out.println("1. Look up a film by its id" + "\n2. Look up a film by a search keyword"
-						+ "\n3. Exit the application");
+				System.out.println("1. Look up a film by its id" + 
+								   "\n2. Look up a film by a search keyword" +
+								   "\n3. Exit the application");
 				choice = input.nextInt();
 				input.nextLine();
 
@@ -85,17 +85,20 @@ public class FilmQueryApp {
 	public void subMenu(Film selectedFilm) {
 		int selection = 0;
 		boolean flag = true;
+		
 		do {
 			try {
 				System.out.println("Would you like to: ");
 				System.out.println("1. See all film details" + "\n2. Return to main menu");
+				
 				selection = input.nextInt();
 				input.nextLine();
 
 				if (selection > 2 || selection < 1) {
 					System.out.println("That's not a valid option.\n");
 					continue;
-				} else if (selection == 1) {
+				} 
+				else if (selection == 1) {
 					System.out.println(selectedFilm.fullPrint());
 				}
 				flag = false;
