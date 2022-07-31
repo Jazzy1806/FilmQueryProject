@@ -32,6 +32,7 @@ public class FilmQueryApp {
 		String keyword = "";
 		boolean flag = true;
 
+		System.out.println("Welcome to Movie Hut.\n");
 		do {
 			try {
 				System.out.println("What would you like to do? ");

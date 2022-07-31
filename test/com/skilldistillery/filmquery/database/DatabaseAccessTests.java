@@ -41,7 +41,7 @@ class DatabaseAccessTests {
   }
   
   @Test
-  void test_findActorById_returns_actors_with_id() {
+  void test_findActorById_returns_actor_with_id() {
     Actor actor = db.findActorById(1);
     assertNotNull(actor);
     assertEquals("Penelope Guiness", actor.getFirstName() + " " + actor.getLastName());
@@ -67,7 +67,7 @@ class DatabaseAccessTests {
   }
   
   @Test
-  void test_findFilmByKeyword_returns_actors_with_keyword() {
+  void test_findFilmByKeyword_returns__list_of_films_with_keyword() {
     List<Film> films = db.findFilmByKeyword("towers");
     assertNotNull(films);
     assertEquals("[Title: TOWERS HURRICANE\n"
