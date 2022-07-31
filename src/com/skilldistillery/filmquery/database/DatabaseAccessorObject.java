@@ -27,7 +27,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		Film film = null;
 		try {
 			Connection conn = DriverManager.getConnection(URL, user, pass);
-			String sql = "SELECT * FROM film f JOIN language l ON f.language_id = l.id WHERE f.id = ?";
+			String sql = "SELECT * FROM film f JOIN film_category fc ON f.id = fc.film_id JOIN category c ON fc.category_id = c.id JOIN language l ON f.language_id = l.id WHERE f.id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, filmId);
 			
@@ -36,10 +36,10 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			if (filmResult.next()) {
 				film = new Film(filmResult.getInt("id"), filmResult.getString("title"),
 						filmResult.getString("description"), filmResult.getInt("release_year"),
-						filmResult.getInt("language_id"), filmResult.getString("name"), filmResult.getInt("rental_duration"),
+						filmResult.getInt("language_id"), filmResult.getString("l.name"), filmResult.getInt("rental_duration"),
 						filmResult.getDouble("rental_rate"), filmResult.getInt("length"),
 						filmResult.getDouble("replacement_cost"), filmResult.getString("rating"),
-						filmResult.getString("special_features"), findActorsByFilmId(filmId));
+						filmResult.getString("special_features"), filmResult.getString("c.name"),findActorsByFilmId(filmId));
 			}
 
 			filmResult.close();
@@ -105,7 +105,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		keyword = "%" + keyword + "%";
 		List<Film> films = new ArrayList<Film>();
 		
-		String sql = "SELECT * FROM film f JOIN language l ON f.language_id = l.id WHERE title LIKE ? OR description LIKE ?";
+		String sql = "SELECT * FROM film f JOIN film_category fc ON f.id = fc.film_id JOIN category c ON fc.category_id = c.id JOIN language l ON f.language_id = l.id  WHERE title LIKE ? OR description LIKE ?";
 
 		try {
 			Connection conn = DriverManager.getConnection(URL, user, pass);
@@ -117,10 +117,10 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			while (filmRS.next()) {
 				films.add(new Film(filmRS.getInt("id"), filmRS.getString("title"),
 						filmRS.getString("description"), filmRS.getInt("release_year"),
-						filmRS.getInt("language_id"), filmRS.getString("name"), filmRS.getInt("rental_duration"),
+						filmRS.getInt("language_id"), filmRS.getString("l.name"), filmRS.getInt("rental_duration"),
 						filmRS.getDouble("rental_rate"), filmRS.getInt("length"),
 						filmRS.getDouble("replacement_cost"), filmRS.getString("rating"),
-						filmRS.getString("special_features"), findActorsByFilmId(filmRS.getInt("id"))));
+						filmRS.getString("special_features"), filmRS.getString("c.name"), findActorsByFilmId(filmRS.getInt("id"))));
 			}
 			filmRS.close();
 			stmt.close();

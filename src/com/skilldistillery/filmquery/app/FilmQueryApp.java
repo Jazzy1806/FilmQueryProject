@@ -45,13 +45,14 @@ public class FilmQueryApp {
 					System.out.println("That's not a valid option.\n");
 					continue;
 				}
-				switch (choice) { 
+				switch (choice) {
 				case 1:
 					System.out.println("Enter the film ID: ");
 					id = input.nextInt();
 					Film result = db.findFilmById(id);
 					if (result != null) {
 						System.out.println(result + "\n");
+						subMenu(result);
 					} else {
 						System.out.println("Film not found.\n");
 					}
@@ -64,12 +65,41 @@ public class FilmQueryApp {
 					for (Film film : keyFilms) {
 						System.out.println(film + "\n");
 					}
+					if (keyFilms.size() != 0) {
+						System.out.println(
+								"\nTo view more details for a film on this list, search by the film ID and select \"See all film details\".\n\n");
+					}
 					break;
 				case 3:
 					System.out.println("You've ended your search. Buh-bye!");
 					flag = false;
 					break;
 				}
+			} catch (Exception e) {
+				System.out.println("That's not a valid option.\n");
+				input.nextLine();
+			}
+		} while (flag);
+	}
+
+	public void subMenu(Film selectedFilm) {
+		int selection = 0;
+		boolean flag = true;
+		do {
+			try {
+				System.out.println("Would you like to: ");
+				System.out.println("1. See all film details" + "\n2. Return to main menu");
+				selection = input.nextInt();
+				input.nextLine();
+
+				if (selection > 2 || selection < 1) {
+					System.out.println("That's not a valid option.\n");
+					continue;
+				} else if (selection == 1) {
+					System.out.println(selectedFilm.fullPrint());
+				}
+				flag = false;
+				break;
 			} catch (Exception e) {
 				System.out.println("That's not a valid option.\n");
 				input.nextLine();
