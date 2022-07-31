@@ -1,13 +1,15 @@
 package com.skilldistillery.filmquery.entities;
 
-import java.util.Objects;
+import java.util.*;
 
 public class Film {
+	private List<Actor> actors = new ArrayList<Actor>();
 	private int filmId;
 	private String title;
 	private String description;
 	private int release_year;
 	private int langId;
+	private String language;
 	private int duration;
 	private double rentalRate;
 	private int length;
@@ -17,19 +19,37 @@ public class Film {
 	
 	public Film() {	}
 
-	public Film(int filmId, String title, String description, int release_year, int langId, int duration,
-			double rentalRate, int length, double replaceCost, String rating, String features) {
+	public Film(int filmId, String title, String description, int release_year, int langId, String language, int duration,
+			double rentalRate, int length, double replaceCost, String rating, String features, List<Actor> actors) {
 		this.filmId = filmId;
 		this.title = title;
 		this.description = description;
 		this.release_year = release_year;
 		this.langId = langId;
+		this.language = language;
 		this.duration = duration;
 		this.rentalRate = rentalRate;
 		this.length = length;
 		this.replaceCost = replaceCost;
 		this.rating = rating;
 		this.features = features;
+		this.actors = actors;
+	}
+
+	public List<Actor> getActors() {
+		return actors;
+	}
+
+	public void setActors(List<Actor> actors) {
+		this.actors = actors;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 
 	public int getFilmId() {
@@ -142,13 +162,29 @@ public class Film {
 				&& Double.doubleToLongBits(replaceCost) == Double.doubleToLongBits(other.replaceCost)
 				&& Objects.equals(title, other.title);
 	}
+	
+	public String printActors() {
+		String actorList = "";
+		for (int i = 0; i < actors.size(); i++) {
+			if (i == actors.size() -1) {
+				actorList += actors.get(i);
+				break;
+			}
+			actorList += actors.get(i) + ", ";
+		}
+		return actorList;
+	}
 
-	@Override
-	public String toString() {
+	public String fullPrint() {
 		return "Title: " + title + "\nRelease Year: " + release_year + "\nDescription: " + description + 
 				"\nLanguage ID: " + langId + ", Duration: " + duration + ", Length: " + length + "\nRental Rate: " + rentalRate
 				+ ", Replacement Cost: " + replaceCost + "\nRating: " + rating + "\nFeatures: "
-				+ features + ", Film ID: " + filmId;
+				+ features + ", Film ID: " + filmId + "\nActors in film: " + actors.toString();
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Title: " + title + "\nRelease Year: " + release_year + "\tRating: " + rating + "\tLanguage: " + language + 
+				"\nDescription: " + description + "\nActors in film: " + printActors();		
+	}
 }

@@ -8,11 +8,9 @@ public class Actor {
 	private String lastName;
 	
 	public Actor() {
-		
 	}
 	
 	public Actor(int id, String firstName, String lastName) {
-		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -61,7 +59,6 @@ public class Actor {
 
 	@Override
 	public String toString() {
-		return "Actor Name: " + firstName + " " + lastName + ", Actor ID: " + id;
+		return firstName + " " + lastName;
 	}
-	
 }
