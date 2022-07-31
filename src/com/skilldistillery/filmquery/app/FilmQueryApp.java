@@ -39,8 +39,7 @@ public class FilmQueryApp {
 				System.out.println("1. Look up a film by its id" + 
 								   "\n2. Look up a film by a search keyword" +
 								   "\n3. Exit the application");
-				choice = input.nextInt();
-				input.nextLine();
+				choice = Integer.parseInt(input.nextLine());
 
 				if (choice > 3 || choice < 1) {
 					System.out.println("That's not a valid option.\n");
@@ -49,7 +48,7 @@ public class FilmQueryApp {
 				switch (choice) {
 				case 1:
 					System.out.println("Enter the film ID: ");
-					id = input.nextInt();
+					id = Integer.parseInt(input.nextLine());
 					Film result = db.findFilmById(id);
 					if (result != null) {
 						System.out.println(result + "\n");
@@ -78,7 +77,6 @@ public class FilmQueryApp {
 				}
 			} catch (Exception e) {
 				System.out.println("That's not a valid option.\n");
-				input.nextLine();
 			}
 		} while (flag);
 	}
